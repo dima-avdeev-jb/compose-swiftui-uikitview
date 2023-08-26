@@ -7,14 +7,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ComposeUIViewController
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.MapKit.MKMapView
+import platform.UIKit.UIView
 import platform.UIKit.UIViewController
 
 @OptIn(ExperimentalForeignApi::class)
-fun ChatViewController(): UIViewController = ComposeUIViewController {
+fun ChatViewController(createUIView:()->UIView): UIViewController = ComposeUIViewController {
     Column {
-        Text("UIKitView")
+        Text("How to use SwiftUI inside UIView inside Compose")
         UIKitView(
-            factory = { MKMapView() },
+            factory = createUIView,
             modifier = Modifier.size(300.dp),
         )
     }
