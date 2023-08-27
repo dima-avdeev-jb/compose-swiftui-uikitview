@@ -7,7 +7,6 @@ struct GradientTemplate<Content: View>: View {
     var body: some View {
         NavigationView {
             ZStack {
-                surfaceColor()
                 VStack {
                     gradient.ignoresSafeArea(edges: .top).frame(height: 0)
                     Spacer()
