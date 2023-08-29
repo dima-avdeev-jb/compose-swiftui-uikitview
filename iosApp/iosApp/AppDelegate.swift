@@ -8,23 +8,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)], for: .normal)
 
-        let firstViewController = Main_iosKt.ComposeOnly()
-        firstViewController.title = "Compose inside UIKit"
+        let composeViewController = Main_iosKt.ComposeOnly()
+        composeViewController.title = "Compose inside UIKit"
 
-        let secondViewController = SecondViewController()
-//        secondViewController.view.backgroundColor = .lightGray
-        secondViewController.title = "UIKit"
-
-        // Wrap them in a UINavigationController for the titles
-        let firstNavController = UINavigationController(rootViewController: firstViewController)
-        let secondNavController = UINavigationController(rootViewController: secondViewController)
+        let anotherViewController = UIKitViewController()
+        anotherViewController.title = "UIKit"
 
         // Set up the UITabBarController
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [firstNavController, secondNavController]
+        tabBarController.viewControllers = [
+            // Wrap them in a UINavigationController for the titles
+            UINavigationController(rootViewController: composeViewController),
+            UINavigationController(rootViewController: anotherViewController)
+        ]
         tabBarController.tabBar.items?[0].title = "Compose"
         tabBarController.tabBar.items?[1].title = "UIKit"
 
@@ -38,28 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-class SecondViewController: UIViewController {
+class UIKitViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Set the background color of the view to white
-        self.view.backgroundColor = UIColor.white
-
-        // Create a UILabel
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false  // Enable Auto Layout
-        label.text = "Hello, this is SecondViewController"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Hello, this is UIKitViewController"
         label.textAlignment = .center
-        label.numberOfLines = 0  // Allow the label to wrap text across multiple lines
+        label.numberOfLines = 0
+        view.addSubview(label)
 
-        // Add the label to the view's subviews
-        self.view.addSubview(label)
-
-        // Center the label within the view
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: self.view.bottomAnchor),
-//            label.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            label.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             label.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             label.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
         ])
